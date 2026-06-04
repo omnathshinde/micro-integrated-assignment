@@ -6,6 +6,7 @@ import helmet from "helmet";
 
 // 🧩 Custom Middlewares
 import audit from "#src/app/middlewares/auditHandler.js";
+import authHandler from "#src/app/middlewares/authHandler.js";
 import errorHandler from "#src/app/middlewares/errorHandler.js";
 import logsHandler from "#src/app/middlewares/logsHandler.js";
 import queryHandler from "#src/app/middlewares/queryHandler.js";
@@ -15,7 +16,6 @@ import transactionHandler from "#src/app/middlewares/transactionHandler.js";
 // 🔐 Auth Controller &🚦 Routes
 import * as auth from "#src/modules/auth/auth.controller.js";
 import authRoutes from "#src/modules/auth/auth.routes.js";
-import authHandler from "#src/modules/auth/authHandler.js";
 
 // 🚀 App Initialization
 const app = express();

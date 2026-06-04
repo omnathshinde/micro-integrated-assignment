@@ -13,7 +13,7 @@ export default (sequelize) => {
 			investorId: { type: DataTypes.INTEGER, allowNull: false },
 			dealId: { type: DataTypes.INTEGER, allowNull: false },
 			amount: { type: DataTypes.DECIMAL(15, 2), allowNull: false },
-			status: {
+			investmentStatus: {
 				type: DataTypes.ENUM("PENDING", "SUCCESS", "FAILED"),
 				defaultValue: "PENDING",
 			},

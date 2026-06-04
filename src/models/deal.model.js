@@ -19,7 +19,7 @@ export default (sequelize) => {
 			expectedROI: { type: DataTypes.FLOAT },
 			riskLevel: { type: DataTypes.ENUM("LOW", "MEDIUM", "HIGH") },
 			riskScore: { type: DataTypes.INTEGER },
-			status: {
+			deakStatus: {
 				type: DataTypes.ENUM("OPEN", "PARTIALLY_FILLED", "CLOSED"),
 				defaultValue: "OPEN",
 			},
@@ -37,7 +37,7 @@ export default (sequelize) => {
 			indexes: [
 				{ fields: ["industry"] },
 				{ fields: ["riskLevel"] },
-				{ fields: ["status"] },
+				{ fields: ["deakStatus"] },
 				{ fields: ["closingDate"] },
 			],
 		},

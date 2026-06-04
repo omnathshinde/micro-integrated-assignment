@@ -1,0 +1,11 @@
+export const DEAL_STATUS = {
+	OPEN: "OPEN",
+	PARTIALLY_FILLED: "PARTIALLY_FILLED",
+	CLOSED: "CLOSED",
+};
+
+export const RISK_SCORE = {
+	LOW: 20,
+	MEDIUM: 50,
+	HIGH: 80,
+};
