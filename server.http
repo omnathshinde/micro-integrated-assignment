@@ -1,0 +1,17 @@
+@url = http://localhost:3000
+@token = JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6IklOVkVTVE9SIiwiaWF0IjoxNzgwNTczNzc0LCJleHAiOjE3ODA1NzM3Nzd9.gWcgRSfNH21F4L3ODKycXH2Pf43Md_ZpD-i7d74pQqQ
+
+# Server
+GET {{url}}/user
+Authorization: {{token}}
+Content-Type: application/json
+
+
+### Server Sign In
+POST {{url}}/login
+Content-Type: application/json
+
+{
+    "username":"admin",
+    "password":"Admin@123"
+}

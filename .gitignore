@@ -1,0 +1,13 @@
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# IDE/editor folders
+/.vscode
+/.idea
+
+/node_modules
+/logs
+/dist
+/build
