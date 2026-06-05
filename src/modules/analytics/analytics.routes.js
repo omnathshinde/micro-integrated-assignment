@@ -17,13 +17,13 @@ analyticsRouter.get(
 
 analyticsRouter.get(
 	"/corporate",
-	authorize("CORPORATE"),
+	authorize("ADMIN", "CORPORATE"),
 	expressAsyncHandler(analytics.corporateDashboard),
 );
 
 analyticsRouter.get(
 	"/investor",
-	authorize("INVESTOR"),
+	authorize("ADMIN", "INVESTOR"),
 	expressAsyncHandler(analytics.investorDashboard),
 );
 

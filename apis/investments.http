@@ -1,0 +1,86 @@
+@url = http://localhost:3000/investments
+@token = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTMsInVzZXJuYW1lIjoiaW52ZXN0b3IyIiwicm9sZSI6IklOVkVTVE9SIiwiaWF0IjoxNzgwNjU0NDQ5LCJleHAiOjE3ODA3NDA4NDl9.H7jvhvETxA-_UBophEUlo2s9dzfBgUqn31vwmThL4K0
+
+### ==========================================
+### Create Investment
+### ==========================================
+POST {{url}}
+Authorization: {{token}}
+Content-Type: application/json
+
+{
+	"dealId": 1,
+	"amount": 100000
+}
+
+### ==========================================
+### Create Another Investment
+### ==========================================
+POST {{url}}
+Authorization: {{token}}
+Content-Type: application/json
+
+{
+	"dealId": 2,
+	"amount": 250000
+}
+
+### ==========================================
+### Get My Investments
+### ==========================================
+GET {{url}}
+Authorization: {{token}}
+
+### ==========================================
+### Get Investment By Id
+### ==========================================
+GET {{url}}/1
+Authorization: {{token}}
+
+### ==========================================
+### Test Below Minimum Amount
+### ==========================================
+POST {{url}}
+Authorization: {{token}}
+Content-Type: application/json
+
+{
+	"dealId": 1,
+	"amount": 1000
+}
+
+### ==========================================
+### Test Above Maximum Amount
+### ==========================================
+POST {{url}}
+Authorization: {{token}}
+Content-Type: application/json
+
+{
+	"dealId": 1,
+	"amount": 5000000
+}
+
+### ==========================================
+### Test Closed Deal
+### ==========================================
+POST {{url}}
+Authorization: {{token}}
+Content-Type: application/json
+
+{
+	"dealId": 10,
+	"amount": 100000
+}
+
+### ==========================================
+### Test Over Funding
+### ==========================================
+POST {{url}}
+Authorization: {{token}}
+Content-Type: application/json
+
+{
+	"dealId": 1,
+	"amount": 999999999
+}

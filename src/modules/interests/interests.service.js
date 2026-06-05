@@ -27,32 +27,46 @@ export const createInterest = async (investorId, payload) => {
 	});
 };
 
-export const getInterests = async (investorId) => {
-	return Interest.findAll({
-		where: {
-			investorId,
-		},
-		include: [
-			{
-				model: Deal,
-				as: "deal",
-			},
-		],
-		order: [["createdAt", "DESC"]],
-	});
-};
+export const updateInterest = async (id, investorId, payload) => {
+	const { amount } = payload;
 
-export const removeInterest = async (id, investorId) => {
+	if (!amount || amount <= 0) {
+		throw new Error("Valid amount is required");
+	}
+
 	const interest = await Interest.findOne({
-		where: {
-			id,
-			investorId,
-		},
+		where: { id, investorId },
+		include: [{ model: Deal, as: "deal" }],
 	});
 
 	if (!interest) {
 		throw new Error("Interest not found");
 	}
 
+	if (amount < interest.deal.minInvestment) {
+		throw new Error(`Minimum investment amount is ${interest.deal.minInvestment}`);
+	}
+
+	if (amount > interest.deal.maxInvestment) {
+		throw new Error(`Maximum investment amount is ${interest.deal.maxInvestment}`);
+	}
+
+	await interest.update({ amount });
+	return interest;
+};
+
+export const getInterests = async (investorId) => {
+	return Interest.findAndCountAll({
+		where: { investorId },
+		include: [{ model: Deal, as: "deal" }],
+		order: [["createdAt", "DESC"]],
+	});
+};
+
+export const removeInterest = async (id, investorId) => {
+	const interest = await Interest.findOne({ where: { id, investorId } });
+	if (!interest) {
+		throw new Error("Interest not found");
+	}
 	await interest.destroy();
 };

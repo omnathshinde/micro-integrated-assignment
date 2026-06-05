@@ -1,7 +1,7 @@
 import * as investmentService from "./investments.service.js";
 
 export const getAll = async (req, res) => {
-	const investments = await investmentService.getInvestments(req.user.id);
+	const investments = await investmentService.getInvestments(req.user);
 	return res.sendSuccess(200, "Investments fetched successfully", investments);
 };
 

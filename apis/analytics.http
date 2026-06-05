@@ -1,5 +1,5 @@
 @url = http://localhost:3000/analytics
-@token = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJjb3Jwb3JhdGUxIiwicm9sZSI6IkNPUlBPUkFURSIsImlhdCI6MTc4MDYyNDEwOSwiZXhwIjoxNzgwNzEwNTA5fQ._XgehkmQXIRKh1dqH7RoSF_t2201g9vGghl5Sw-NUMc
+@token = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJhZG1pbiIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc4MDY1NTUxMCwiZXhwIjoxNzgwNzQxOTEwfQ.NiskPYi21ORIi57YPM6aLDZhWjEAQY2y_4BtBy7KNFA
 
 ### Dashbaord
 GET {{url}}/dashboard

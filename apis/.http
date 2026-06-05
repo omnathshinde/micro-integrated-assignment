@@ -33,6 +33,6 @@ POST {{url}}/login
 	Content-Type: application/json
 
 {
-	"username": "investor4",
+	"username": "investor2",
 	"password": "Investor@123"
 }

@@ -1,37 +1,40 @@
 import { Deal, Investment } from "#src/models/index.js";
 
-export const createInvestment = async (req, res) => {
-	const payload = req.body;
+export const createInvestment = async (req) => {
+	const { dealId, amount } = req.body;
+
 	const investorId = req.user.id;
 	const transaction = req.transaction;
 
-	const { dealId, amount } = payload;
-
 	const deal = await Deal.findByPk(dealId, {
 		transaction,
-		lock: true,
+		lock: transaction.LOCK.UPDATE,
 	});
 
 	if (!deal) {
-		return res.sendError(404, "Deal not found");
+		throw new Error("Deal not found");
 	}
 
-	if (deal.investmentStatus === "CLOSED") {
-		return res.sendError(400, "Deal is closed");
+	if (deal.dealStatus === "CLOSED") {
+		throw new Error("Deal is closed");
 	}
 
-	if (amount < deal.minInvestment) {
-		return res.sendError(400, `Minimum investment is ${deal.minInvestment}`);
+	if (new Date(deal.closingDate) < new Date()) {
+		throw new Error("Deal has expired");
 	}
 
-	if (amount > deal.maxInvestment) {
-		return res.sendError(400, `Maximum investment is ${deal.maxInvestment}`);
+	if (Number(amount) < Number(deal.minInvestment)) {
+		throw new Error(`Minimum investment is ${deal.minInvestment}`);
+	}
+
+	if (Number(amount) > Number(deal.maxInvestment)) {
+		throw new Error(`Maximum investment is ${deal.maxInvestment}`);
 	}
 
 	const remaining = Number(deal.targetAmount) - Number(deal.currentRaisedAmount);
 
-	if (amount > remaining) {
-		return res.sendError(400, "Investment exceeds remaining target amount");
+	if (Number(amount) > remaining) {
+		throw new Error(`Only ${remaining} investment amount is remaining`);
 	}
 
 	const investment = await Investment.create(
@@ -46,18 +49,18 @@ export const createInvestment = async (req, res) => {
 		},
 	);
 
-	const newRaisedAmount = Number(deal.currentRaisedAmount) + Number(amount);
+	const currentRaisedAmount = Number(deal.currentRaisedAmount) + Number(amount);
 
-	let investmentStatus = "PARTIALLY_FILLED";
+	let dealStatus = "PARTIALLY_FILLED";
 
-	if (newRaisedAmount >= deal.targetAmount) {
-		investmentStatus = "CLOSED";
+	if (currentRaisedAmount >= Number(deal.targetAmount)) {
+		dealStatus = "CLOSED";
 	}
 
 	await deal.update(
 		{
-			currentRaisedAmount: newRaisedAmount,
-			investmentStatus,
+			currentRaisedAmount,
+			dealStatus,
 		},
 		{
 			transaction,
@@ -67,9 +70,15 @@ export const createInvestment = async (req, res) => {
 	return investment;
 };
 
-export const getInvestments = async (investorId) => {
+export const getInvestments = async (user) => {
+	const where = {};
+
+	if (user.role === "INVESTOR") {
+		where.investorId = user.id;
+	}
+
 	return Investment.findAll({
-		where: { investorId },
+		where,
 		include: [
 			{
 				model: Deal,

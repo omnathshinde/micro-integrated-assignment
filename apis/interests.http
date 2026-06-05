@@ -1,0 +1,95 @@
+@url = http://localhost:3000/interests
+@token = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsInVzZXJuYW1lIjoiaW52ZXN0b3I0Iiwicm9sZSI6IklOVkVTVE9SIiwiaWF0IjoxNzgwNjM3MTIyLCJleHAiOjE3ODA3MjM1MjJ9.V70bOxKSm3myXqgp_Py_pSGnj303Ka8-BVMB3tHlThc
+
+### ==========================================
+### Get All My Interests
+### ==========================================
+GET {{url}}
+Authorization: {{token}}
+
+### ==========================================
+### Create Interest
+### ==========================================
+POST {{url}}
+Authorization: {{token}}
+Content-Type: application/json
+
+{
+	"dealId": 1,
+	"amount": 100000
+}
+
+### ==========================================
+### Update Interest Amount
+### ==========================================
+PUT {{url}}/1
+Authorization: {{token}}
+Content-Type: application/json
+
+{
+	"amount": 250000
+}
+
+### ==========================================
+### Update Interest Amount (Minimum Test)
+### ==========================================
+PUT {{url}}/1
+Authorization: {{token}}
+Content-Type: application/json
+
+{
+	"amount": 50000
+}
+
+### ==========================================
+### Update Interest Amount (Maximum Test)
+### ==========================================
+PUT {{url}}/1
+Authorization: {{token}}
+Content-Type: application/json
+
+{
+	"amount": 1000000
+}
+
+### ==========================================
+### Delete Interest
+### ==========================================
+DELETE {{url}}/1
+Authorization: {{token}}
+
+### ==========================================
+### Create Duplicate Interest (Should Fail)
+### ==========================================
+POST {{url}}
+Authorization: {{token}}
+Content-Type: application/json
+
+{
+	"dealId": 1,
+	"amount": 150000
+}
+
+### ==========================================
+### Create Interest For Another Deal
+### ==========================================
+POST {{url}}
+Authorization: {{token}}
+Content-Type: application/json
+
+{
+	"dealId": 2,
+	"amount": 300000
+}
+
+### ==========================================
+### Create Interest For Non Existing Deal
+### ==========================================
+POST {{url}}
+Authorization: {{token}}
+Content-Type: application/json
+
+{
+	"dealId": 999,
+	"amount": 100000
+}

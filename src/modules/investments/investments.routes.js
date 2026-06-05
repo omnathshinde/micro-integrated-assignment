@@ -9,13 +9,11 @@ const investmentsRouter = express.Router();
 
 investmentsRouter
 	.route("/")
-	.get(expressAsyncHandler(investments.getAll))
+	.get(authorize("INVESTOR", "ADMIN"), expressAsyncHandler(investments.getAll))
 	.post(authorize("INVESTOR"), expressAsyncHandler(investments.create));
 
 investmentsRouter
 	.route("/:id")
-	.get(expressAsyncHandler(investments.getOne))
-	.put(authorize("INVESTOR"), expressAsyncHandler(investments.update))
-	.delete(authorize("INVESTOR"), expressAsyncHandler(investments.destroy));
+	.get(authorize("INVESTOR"), expressAsyncHandler(investments.getOne));
 
 export default investmentsRouter;
