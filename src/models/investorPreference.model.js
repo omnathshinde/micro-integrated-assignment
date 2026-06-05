@@ -2,8 +2,12 @@ import { DataTypes, Model } from "sequelize";
 
 export default (sequelize) => {
 	class InvestorPreference extends Model {
-		static associate({ User }) {
+		static associate({ User, InvestorPreferredIndustry }) {
 			this.belongsTo(User, { foreignKey: "userId", as: "user" });
+			this.hasMany(InvestorPreferredIndustry, {
+				foreignKey: "investorPreferenceId",
+				as: "preferredIndustries",
+			});
 		}
 	}
 
@@ -16,7 +20,6 @@ export default (sequelize) => {
 			},
 			minBudget: { type: DataTypes.DECIMAL(15, 2) },
 			maxBudget: { type: DataTypes.DECIMAL(15, 2) },
-			preferredIndustries: { type: DataTypes.JSON, allowNull: true },
 		},
 		{ sequelize, modelName: "InvestorPreference" },
 	);

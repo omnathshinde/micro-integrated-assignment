@@ -8,7 +8,7 @@ import app from "#src/app/app.js";
 import connectDB from "#src/app/configs/db.js";
 import env from "#src/app/configs/env.js";
 import logger from "#src/app/configs/logger.js";
-import seedAdmin from "#src/app/configs/seedAdmin.js";
+import seedData from "#src/app/configs/seedData.js";
 
 // 🌍 Config
 const { PORT, HOST, HTTPS, SSL_KEY_PATH, SSL_CERT_PATH, SSL_CA_PATH } = env;
@@ -40,7 +40,7 @@ if (HTTPS) {
 	try {
 		// console.clear();
 		await connectDB();
-		await seedAdmin();
+		await seedData();
 		server.listen(PORT, HOST, () => {
 			logger.info("✅ Server started successfully");
 			console.log(

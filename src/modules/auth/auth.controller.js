@@ -2,24 +2,29 @@ import { Op } from "sequelize";
 
 import logger from "#src/app/configs/logger.js";
 import { verifyPassword } from "#src/app/helpers/HashPassword.js";
-import { generateRefreshToken, generateToken } from "#src/app/helpers/JsonWebToken.js";
+import { generateToken } from "#src/app/helpers/JsonWebToken.js";
 import { User } from "#src/models/index.js";
 
 export const register = async (req, res) => {
 	const { name, email, username, password } = req.body;
+
 	if (!name || !email || !username || !password) {
 		return res.sendError(400, "Name, email, username and password are required");
 	}
 
 	const existingUser = await User.findOne({
-		where: { [Op.or]: [{ email }, { username }] },
+		where: {
+			[Op.or]: [{ email }, { username }],
+		},
 	});
 
 	if (existingUser) {
-		if (existingUser.email === email) {
-			return res.sendError(409, "Email already exists");
-		}
-		return res.sendError(409, "Username already exists");
+		return res.sendError(
+			409,
+			existingUser.email === email
+				? "Email already exists"
+				: "Username already exists",
+		);
 	}
 
 	const user = await User.create({
@@ -30,7 +35,8 @@ export const register = async (req, res) => {
 		role: "INVESTOR",
 	});
 
-	logger.warn("User Register", { "Register User": user.username });
+	logger.info(`User registered: ${user.username}`);
+
 	return res.sendSuccess(201, {
 		id: user.id,
 		name: user.name,
@@ -62,10 +68,14 @@ export const login = async (req, res) => {
 		return res.sendError(401, "Invalid username or password");
 	}
 
-	const accessToken = generateToken({ id: user.id, role: user.role });
-	const refreshToken = generateRefreshToken({ id: user.id });
+	const token = generateToken({
+		id: user.id,
+		username: user.username,
+		role: user.role,
+	});
 
-	logger.warn("User Logged", { "Login User": user.username });
+	logger.info(`User logged in: ${user.username}`);
+
 	return res.sendSuccess(200, {
 		user: {
 			id: user.id,
@@ -74,7 +84,6 @@ export const login = async (req, res) => {
 			username: user.username,
 			role: user.role,
 		},
-		accessToken,
-		refreshToken,
+		token,
 	});
 };

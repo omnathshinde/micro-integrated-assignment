@@ -27,7 +27,8 @@ export const generateRefreshToken = (payload, expiresIn = JWT_REFRESH_EXPIRES_IN
 export const verifyToken = (token) => {
 	try {
 		return jwt.verify(token, JWT_SECRET_KEY);
-	} catch {
+	} catch (error) {
+		console.log("JWT Verify Error:", error);
 		return null; // expired or invalid
 	}
 };

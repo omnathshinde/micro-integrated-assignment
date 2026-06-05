@@ -1,9 +1,13 @@
 import express from "express";
 import expressAsyncHandler from "express-async-handler";
 
+import authorize from "#src/middlewares/authorize.js";
+
 import * as user from "./user.controller.js";
 
 const userRoutes = express.Router();
+
+userRoutes.use(authorize("ADMIN"));
 
 userRoutes
 	.route("")

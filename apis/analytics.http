@@ -1,0 +1,25 @@
+@url = http://localhost:3000/analytics
+@token = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJjb3Jwb3JhdGUxIiwicm9sZSI6IkNPUlBPUkFURSIsImlhdCI6MTc4MDYyNDEwOSwiZXhwIjoxNzgwNzEwNTA5fQ._XgehkmQXIRKh1dqH7RoSF_t2201g9vGghl5Sw-NUMc
+
+### Dashbaord
+GET {{url}}/dashboard
+Authorization: {{token}}
+Content-Type: application/json
+
+### Trends
+GET {{url}}/trends
+Authorization: {{token}}
+Content-Type: application/json
+
+
+### Corporate
+GET {{url}}/corporate
+Authorization: {{token}}
+Content-Type: application/json
+
+
+### Investor
+GET {{url}}/investor
+Authorization: {{token}}
+Content-Type: application/json
+

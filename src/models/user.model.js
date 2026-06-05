@@ -16,7 +16,7 @@ export default (sequelize) => {
 			name: { type: DataTypes.STRING, allowNull: false },
 			email: {
 				type: DataTypes.STRING,
-				allowNull: true,
+				allowNull: false,
 				unique: true,
 				validate: { isEmail: true },
 			},

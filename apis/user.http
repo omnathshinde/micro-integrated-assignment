@@ -1,8 +1,8 @@
 @url = http://localhost:3000
-@token = JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiQWRtaW4iLCJlbXBsb3llZUlkIjoiMSIsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlSWQiOjEsInNpdGVJZCI6bnVsbCwiaWF0IjoxNzYwNTI3Nzg4fQ.wwjBHuwj0zFtB9rr0vxyInsERWVl_F6pEM6UXDjsJAQ
+@token = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJhZG1pbiIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc4MDYxMTQ0OCwiZXhwIjoxNzgwNjk3ODQ4fQ.NDHwWGwIwIofJQAqBk5kzl82U75qBqQEZngIAvDtZIw
 
 ### Get all users
-GET {{url}}/user?status=0
+GET {{url}}/user?status=1&role=INVESTOR
 Authorization: {{token}}
 Content-Type: application/json
 
@@ -58,67 +58,15 @@ Content-Type: application/json
 }
 
 
-###
-
 
 ### Delete a user
-DELETE {{url}}/user/7
+DELETE {{url}}/user/3
+Authorization: {{token}}
+Content-Type: application/json
+
+### Restore a user
+PATCH  {{url}}/user/3
 Authorization: {{token}}
 Content-Type: application/json
 
 
-###
-
-
-### Create Bulk Users
-POST {{url}}/user/bulk-records
-Authorization: {{token}}
-Content-Type: application/json
-
-[
-  {
-    "username": "admin",
-    "password": "12345"
-  },
-  {
-    "siteId": 1,
-    "roleId": 2,
-    "employeeId": 11,
-    "username": "omnath",
-    "password": "12345"
-  },
-  {
-    "siteId": 2,
-    "roleId": 3,
-    "employeeId": 12,
-    "username": "shubham",
-    "password": "12345"
-  },
-  {
-    "siteId": 3,
-    "employeeId": 14,
-    "username": "yug",
-    "password": "12345"
-  },
-  {
-    "siteId": 3,
-    "roleId": 3,
-    "employeeId": 15,
-    "username": "sagar",
-    "password": "12345"
-  },
-  {
-    "siteId": 7,
-    "roleId": 2,
-    "employeeId": 13,
-    "username": "sachin",
-    "password": "12345"
-  },
-  {
-    "siteId": 1,
-    "roleId": 4,
-    "employeeId": 16,
-    "username": "ganesh",
-    "password": "12345"
-  }
-]

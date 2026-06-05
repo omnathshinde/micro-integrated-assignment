@@ -97,6 +97,18 @@ export default async (sequelize) => {
 		instance.updatedBy = getCurrentUser();
 	});
 
+	sequelize.addHook("beforeUpsert", (instances) => {
+		const who = getCurrentUser();
+		if (!instances.createdBy) {
+			instances.createdBy = who;
+		}
+		instances.updatedBy = who;
+	});
+
+	sequelize.addHook("afterUpsert", () => {
+		console.log("🔄 Upsert completed");
+	});
+
 	sequelize.addHook("beforeBulkUpdate", async (options) => {
 		options.attributes ??= {};
 		options.attributes.updatedBy = getCurrentUser();

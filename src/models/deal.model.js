@@ -2,8 +2,9 @@ import { DataTypes, Model } from "sequelize";
 
 export default (sequelize) => {
 	class Deal extends Model {
-		static associate({ User, Interest, Investment }) {
+		static associate({ User, Industry, Interest, Investment }) {
 			this.belongsTo(User, { foreignKey: "corporateId", as: "corporate" });
+			this.belongsTo(Industry, { foreignKey: "industryId", as: "industry" });
 			this.hasMany(Interest, { foreignKey: "dealId", as: "interests" });
 			this.hasMany(Investment, { foreignKey: "dealId", as: "investments" });
 		}
@@ -12,14 +13,14 @@ export default (sequelize) => {
 	Deal.init(
 		{
 			corporateId: { type: DataTypes.INTEGER, allowNull: false },
+			industryId: { type: DataTypes.INTEGER, allowNull: false },
 			companyName: { type: DataTypes.STRING, allowNull: false },
-			industry: { type: DataTypes.STRING, allowNull: false },
 			description: { type: DataTypes.TEXT },
 			investmentRequired: { type: DataTypes.DECIMAL(15, 2) },
 			expectedROI: { type: DataTypes.FLOAT },
 			riskLevel: { type: DataTypes.ENUM("LOW", "MEDIUM", "HIGH") },
 			riskScore: { type: DataTypes.INTEGER },
-			deakStatus: {
+			dealStatus: {
 				type: DataTypes.ENUM("OPEN", "PARTIALLY_FILLED", "CLOSED"),
 				defaultValue: "OPEN",
 			},
@@ -35,9 +36,9 @@ export default (sequelize) => {
 			modelName: "Deal",
 			paranoid: true,
 			indexes: [
-				{ fields: ["industry"] },
+				{ fields: ["industryId"] },
 				{ fields: ["riskLevel"] },
-				{ fields: ["deakStatus"] },
+				{ fields: ["dealStatus"] },
 				{ fields: ["closingDate"] },
 			],
 		},

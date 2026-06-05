@@ -5,14 +5,15 @@ import authorize from "#src/middlewares/authorize.js";
 
 import * as interests from "./interests.controller.js";
 
-const router = express.Router();
-router.use(authorize("INVESTOR"));
+const interestsRouter = express.Router();
 
-router
+interestsRouter.use(authorize("INVESTOR"));
+
+interestsRouter
 	.route("/")
 	.post(expressAsyncHandler(interests.create))
 	.get(expressAsyncHandler(interests.getAll));
 
-router.delete("/:id", expressAsyncHandler(interests.destroy));
+interestsRouter.delete("/:id", expressAsyncHandler(interests.destroy));
 
-export default router;
+export default interestsRouter;

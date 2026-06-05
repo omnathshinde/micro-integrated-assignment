@@ -1,0 +1,38 @@
+@url = http://localhost:3000
+
+###
+# Health Check
+GET {{url}}
+
+###
+
+# Admin Login
+POST {{url}}/login
+Content-Type: application/json
+
+{
+	"username": "admin",
+	"password": "Admin@123"
+}
+
+###
+
+# Corporate Login
+POST {{url}}/login
+Content-Type: application/json
+
+{
+	"username": "corporate1",
+	"password": "Corporate@123"
+}
+
+###
+
+# Investor Login
+POST {{url}}/login
+	Content-Type: application/json
+
+{
+	"username": "investor4",
+	"password": "Investor@123"
+}

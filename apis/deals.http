@@ -1,0 +1,86 @@
+@url = http://localhost:3000/deals
+@token = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJpbnZlc3RvciIsInJvbGUiOiJJTlZFU1RPUiIsImlhdCI6MTc4MDYxMjY4MywiZXhwIjoxNzgwNjk5MDgzfQ.5ahiFEEZ2dpDrmxpdRqmHL2Id2YZ0-LLkpbbT-4LgtI
+
+### Get All Deals
+GET {{url}}?status=1
+Authorization: {{token}}
+
+### Get Recommend
+GET {{url}}/recommended
+Authorization: {{token}}
+
+### Get Deal By ID
+GET {{url}}/1
+Authorization: {{token}}
+
+### Create Deal (CORPORATE)
+POST {{url}}
+Authorization: {{token}}
+Content-Type: application/json
+
+{
+  "industryId": 1,
+  "companyName": "AI Startup Pvt Ltd",
+  "description": "AI-powered business automation platform",
+  "investmentRequired": 5000000,
+  "expectedROI": 25,
+  "riskLevel": "MEDIUM",
+  "minInvestment": 50000,
+  "maxInvestment": 500000,
+  "targetAmount": 5000000,
+  "closingDate": "2026-12-31",
+  "tags": [
+    "AI",
+    "SaaS",
+    "Automation"
+  ]
+}
+
+### Update Deal
+PUT {{url}}/1
+Authorization: {{token}}
+Content-Type: application/json
+
+{
+  "expectedROI": 30,
+  "maxInvestment": 750000,
+  "description": "Updated description"
+}
+
+### Delete Deal (Soft Delete)
+DELETE {{url}}/1
+Authorization: {{token}}
+
+### Restore Deal
+PATCH  {{url}}/1
+Authorization: {{token}}
+
+### Filter Deals
+GET {{url}}?riskLevel=LOW
+Authorization: {{token}}
+Content-Type: application/json
+
+### Filter By Industry
+GET {{url}}?industryId=1
+Authorization: {{token}}
+Content-Type: application/json
+
+### Filter By Status
+GET {{url}}?dealStatus=OPEN
+Authorization: {{token}}
+Content-Type: application/json
+
+### Filter By ROI
+GET {{url}}?minROI=20
+Authorization: {{token}}
+Content-Type: application/json
+
+### Pagination
+GET {{url}}?page=1&limit=10
+Authorization: {{token}}
+Content-Type: application/json
+
+### Combined Filters
+GET {{url}}?industryId=1&riskLevel=MEDIUM&minROI=20&page=1&limit=10
+Authorization: {{token}}
+Content-Type: application/json
