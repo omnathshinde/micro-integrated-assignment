@@ -77,7 +77,7 @@ export const getInvestments = async (user) => {
 		where.investorId = user.id;
 	}
 
-	return Investment.findAll({
+	return Investment.findAndCountAll({
 		where,
 		include: [
 			{

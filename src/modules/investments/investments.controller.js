@@ -2,7 +2,7 @@ import * as investmentService from "./investments.service.js";
 
 export const getAll = async (req, res) => {
 	const investments = await investmentService.getInvestments(req.user);
-	return res.sendSuccess(200, "Investments fetched successfully", investments);
+	return res.sendSuccess(200, investments);
 };
 
 export const getOne = async (req, res) => {
@@ -10,7 +10,7 @@ export const getOne = async (req, res) => {
 	if (!investment) {
 		return res.sendError(404, "Investment not found");
 	}
-	return res.sendSuccess(200, "Investment fetched successfully", investment);
+	return res.sendSuccess(200, investment);
 };
 
 export const create = async (req, res) => {

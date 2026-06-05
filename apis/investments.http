@@ -46,7 +46,7 @@ Content-Type: application/json
 
 {
 	"dealId": 1,
-	"amount": 1000
+	"amount": 50000
 }
 
 ### ==========================================
